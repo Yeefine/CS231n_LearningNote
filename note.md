@@ -130,14 +130,24 @@
 >>> + Use <font color = #7FFFD4>ReLU</font>. Be careful with your learning rates  
 >>> + Try out <font color = #DEB887>Leaky ReLU/ Maxout/ ELU</font>  
 >>> + Try out <font color = #ff0000>tanh</font> but don't expect much    
->>> + <font color = #ff0000>Don't use sigmoid</font>
-> + #### 数据预处理  
->> &emsp; 用于开始训练的输入数据  
->> &emsp; 一般对于图像，我们就是做零均值化的预处理  
->> &emsp; 一般在训练阶段，我们会决定我们的均值，然后将一样的均值应用到测试数据中去
->> + First idea: **Small random numbers**(适用于小型网络)   
->> + 初始化权重 ： 权重太小，网络崩溃； 权重太大，网络饱和  
->> &emsp;**Reasonable initialization:**  Xavier initialization  
+>>> + <font color = #ff0000>Don't use sigmoid</font>  
+> + #### 初始化权重  
+>> + First idea: **Small random numbers**(适用于小型网络)
+>> + 在开始训练时，初始化的权重值(即 W 参数)  
+>> + 如果权重太小，在学习深度网络时，激活值会消失；  
+>> + 如果权重初始值过大 ，那么这些初始值不断地乘以你的权值矩阵，将会爆炸增长  
+>> &emsp;**Reasonable initialization:**  Xavier初始化法 initialization  
 >> ![](https://github.com/W-Avan/Machine_Learning/raw/master/pic/6.png)  
 >> &emsp;ReLU 由于有一般的神经元被置 0 ，(和之前未用 ReLU 激活函数相比)等效的输入，实际只有一半的输入，所以只需要除以 2 这个因子， done.
->> ![](https://github.com/W-Avan/Machine_Learning/raw/master/pic/7.png)  
+>> ![](https://github.com/W-Avan/Machine_Learning/raw/master/pic/7.png)
+> + #### 数据预处理  
+>> &emsp; 在卷积神经网络中，中心化和归一化是非常常用的手段，它会使数据分布均值为零，方差为一  
+>> &emsp; 使用归一化，我们的损失函数对参数值中地小扰动就不那么敏感了； 如果神经网络中，某一层地输入均值不为 0 ，或者方差不为 1，该层网络权值矩阵地微小摄动，都会造成该层输出的巨大摄动    
+>> + **batch normalization**  
+>> &emsp; 即在神经网络中加入额外一层以使得中间的激活值均值为0方差为1  
+>> &emsp;  在batch normalization中，正向传递时，我们用小批量地统计数据计算平均值和标准差，并用这个估计值并且对数据进行归一化，同时还有缩放函数和平移函数来增加一层地可表达性   
+> + #### 监督学习  
+>> ![](https://github.com/W-Avan/Machine_Learning/raw/master/pic/8.png)  
+> + #### hyperparameter search(超参数搜索)  
+>> + 网格搜索，随机搜索，当你的模型性能对某一个超参数比对其他超参数更敏感的时候，随机搜索可以对超参数空间覆盖的更好  
+>> + 粗细粒交叉搜索，当你做超参数优化的时候，一开始可能会处理很大的搜索范围，几次迭代后，就可以缩小范围，圈定合适的超参数所在的区域，然后在对这个小范围，重复这个过程，可以多次迭代上述步骤，以获得超参数的正确区域
