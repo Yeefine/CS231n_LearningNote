@@ -57,6 +57,6 @@ newRowX[0] = 1
 newRowX[2] = 0
 print("newRowX: " + str(newRowX))
 
-进行预测
+# 进行预测
 predictedY = clf.predict([newRowX]) # newRowX要加[] ,python3不同于2
 print("predictedY: " + str(predictedY))
